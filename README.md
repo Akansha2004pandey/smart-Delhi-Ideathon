@@ -1,50 +1,62 @@
-# RBAC Admin Dashboard
+# PERMIGO-RBAC Admin Dashboard  
 
-A modern, secure, and user-friendly Role-Based Access Control (RBAC) administration interface built with React, TypeScript, and Tailwind CSS. This dashboard provides comprehensive user, role, and permission management capabilities with a beautiful, responsive UI.
+A modern, secure, and user-friendly Role-Based Access Control (RBAC) administration interface built with React, TypeScript, and Tailwind CSS. This dashboard enables comprehensive management of users, roles, and permissions with a responsive and intuitive UI.  
 
-![Dashboard Preview](https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=2426&h=1200)
+### 🌐 Live Demo  
+🚀 [**Check out the live demo here**](https://permigo-dashboard.vercel.app/)  
 
-## Features
+---
 
-### User Management
-- 👥 Complete user CRUD operations
-- 🔍 Real-time search and filtering
-- 📊 Status tracking (Active/Inactive)
-- 🔄 Role assignment and modification
+## Features  
 
-### Role Management
-- 🛡️ Create and manage user roles
-- 🎯 Granular permission assignment
-- 📝 Role description and documentation
-- 🔄 Dynamic permission updates
+### 🔹 User Management  
+- 👥 Complete user CRUD operations  
+- 🔍 Real-time search and filtering  
+- 📊 Status tracking (Active/Inactive)  
+- 🔄 Role assignment and modification  
 
-### Permission Management
-- 🔐 Module-based permission organization
-- 📋 Comprehensive audit logging
-- 🔍 Search and filter capabilities
-- 📊 Permission hierarchy visualization
+### 🔹 Role Management  
+- 🛡️ Create and manage user roles  
+- 🎯 Granular permission assignment  
+- 📝 Role description and documentation  
+- 🔄 Dynamic permission updates  
 
-### Security & UX
-- 🔒 Type-safe implementation with TypeScript
-- 🎨 Modern UI with Tailwind CSS
-- 📱 Fully responsive design
-- ⚡ Real-time updates with Redux
+### 🔹 Permission Management  
+- 🔐 Module-based permission organization  
+- 📋 Comprehensive audit logging  
+- 🔍 Search and filter capabilities  
+- 📊 Permission hierarchy visualization  
 
-## Tech Stack
+### 🔹 Security & UX  
+- 🔒 Type-safe implementation with TypeScript  
+- 🎨 Modern UI with Tailwind CSS  
+- 📱 Fully responsive design  
+- ⚡ Real-time updates with Redux  
 
-- **Frontend Framework**: React 18 with TypeScript
-- **State Management**: Redux Toolkit
-- **Styling**: Tailwind CSS
-- **Icons**: Lucide React
-- **Routing**: React Router v6
-- **Type Safety**: TypeScript
-- **Build Tool**: Vite
+---
+
+## Tech Stack  
+
+<div align="center">
+
+| **Technology**     | **Purpose**                       |  
+|---------------------|-----------------------------------|  
+| ![React](https://img.shields.io/badge/React-v18-blue?logo=react&style=flat-square)  | Frontend Framework |  
+| ![TypeScript](https://img.shields.io/badge/TypeScript-v4-blue?logo=typescript&style=flat-square) | Type Safety |  
+| ![Redux](https://img.shields.io/badge/Redux-Toolkit-purple?logo=redux&style=flat-square) | State Management |  
+| ![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-v3-blue?logo=tailwindcss&style=flat-square) | Styling |  
+| ![Vite](https://img.shields.io/badge/Vite-Build%20Tool-orange?logo=vite&style=flat-square) | Build Tool |  
+| ![React Router](https://img.shields.io/badge/React%20Router-v6-blue?logo=react-router&style=flat-square) | Routing |  
+
+</div>  
+
+---
 
 ## Getting Started
 
 1. Clone the repository:
 ```bash
-git clone [repository-url]
+git clone https://github.com/coolCoderD/Permigo-RABC-Dashboard-.git
 ```
 
 2. Install dependencies:
@@ -117,10 +129,6 @@ The application uses Redux Toolkit for state management with the following slice
 3. Commit your changes
 4. Push to the branch
 5. Create a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Acknowledgments
 
