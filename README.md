@@ -1,6 +1,6 @@
 # PERMIGO-RBAC Admin Dashboard  
 
-A modern, secure, and user-friendly Role-Based Access Control (RBAC) administration interface built with React, TypeScript, and Tailwind CSS. This dashboard enables comprehensive management of users, roles, and permissions with a responsive and intuitive UI.  
+A modern, secure, and user-friendly Role-Based Access Control (RBAC) administration interface built with React, TypeScript, and Tailwind CSS. Permigo enables comprehensive management of users, roles, and permissions with a responsive and intuitive UI.  
 
 ### 🌐 Live Demo  
 🚀 [**Check out the live demo here**](https://permigo-dashboard.vercel.app/)  
