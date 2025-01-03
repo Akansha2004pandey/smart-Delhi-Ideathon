@@ -11,8 +11,9 @@ import Consent from './pages/consent/Consent';
 import UserContext from './utils/UserContext';
 import { Navigate } from 'react-router-dom';
 import { useContext } from 'react';
+import { User } from 'lucide-react';
 
-
+import UserDashboardLayout from './components/layout/userDashboard/UserDashboardLayout';
 // PrivateRoute Component
 
 function App() {
@@ -62,6 +63,9 @@ function App() {
         </Route>
         <Route path="/userLogin" element={<Login/>}/>
         <Route path="/consent" element={isLoggedIn?<Consent/>:<Login/>}/>
+        <Route path="/userDashboard" element={<UserDashboardLayout />}>
+     
+        </Route>
         
       </Routes>
     </Router>

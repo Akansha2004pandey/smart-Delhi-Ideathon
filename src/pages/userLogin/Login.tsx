@@ -12,7 +12,7 @@ const Login = () => {
     const navigate=useNavigate();
     const handleClick=()=>{
        setIsLoggedIn(true);
-        navigate("/consent");
+       navigate("/consent");
     }
   return (
     <>
