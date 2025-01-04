@@ -2,8 +2,11 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Navbar from '../Navbar';
-
+import UserContext from '@/utils/UserContext' 
+import { useContext } from 'react';
 const UserDashboardLayout = () => {
+  const {isLoggedIn}=useContext(UserContext);
+    console.log(isLoggedIn);
   return (
     <div className="relative min-h-screen bg-gray-50">
       {/* Fixed gradient background */}

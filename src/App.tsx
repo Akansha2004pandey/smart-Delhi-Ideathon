@@ -63,8 +63,8 @@ function App() {
         </Route>
         <Route path="/userLogin" element={<Login/>}/>
         <Route path="/consent" element={isLoggedIn?<Consent/>:<Login/>}/>
-        <Route path="/userDashboard" element={<UserDashboardLayout />}>
-     
+        <Route path="/userDashboard" element={isLoggedIn?<UserDashboardLayout />:<Login/>}>
+        
         </Route>
         
       </Routes>

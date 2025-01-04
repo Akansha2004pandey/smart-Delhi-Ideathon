@@ -1,6 +1,8 @@
 import React from 'react'
-
+import UserContext from '@/utils/UserContext'
+import { useContext } from 'react';
 const UserDashboard = () => {
+    
   return (
     <div>
        hello everyone
