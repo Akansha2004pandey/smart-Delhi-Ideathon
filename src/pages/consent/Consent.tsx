@@ -21,18 +21,7 @@ const Consent = () => {
     const [notificationToken, setNotificationToken] = useState(null);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        // Service Worker Registration for Firebase Messaging
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register("/firebase-messaging-sw.js")
-                .then((registration) => {
-                    console.log("Service Worker registered with scope:", registration.scope);
-                })
-                .catch((error) => {
-                    console.error("Service Worker registration failed:", error);
-                });
-        }
-    }, []);
+    
 
     useEffect(() => {
         // Handle location permissions
@@ -51,6 +40,31 @@ const Consent = () => {
         }
     }, [location]);
 
+    useEffect(() => {
+        if (notifications) {
+            
+            Notification.requestPermission().then((permission) => {
+                if (permission === 'granted') {
+                    console.log(permission);
+                    getToken(messaging, { vapidKey: process.env.VAPID_KEY })
+                        .then((currentToken) => {
+                            if (currentToken) {
+                                setNotificationToken(currentToken);
+                                console.log('Notification token:', currentToken);
+                            } else {
+                                console.log('No registration token available. Request permission to generate one.');
+                            }
+                        })
+                        .catch((err) => {
+                            console.log('An error occurred while retrieving token.', err);
+                        });
+                } else {
+                    console.log("Notification permission denied");
+                }
+            });
+        }
+    }, [notifications]);
+
     const handleDetailsSubmit = (details) => {
         setIdentity(details);
         console.log('User Details Submitted:', details);
@@ -67,31 +81,11 @@ const Consent = () => {
             if (userLocation) {
                 console.log("User Location:", userLocation);
             }
-
-            if (notifications) {
-                // Request permission for notifications
-                await Notification.requestPermission().then((permission) => {
-                    if (permission === 'granted') {
-                        getToken(messaging, { vapidKey: 'YOUR_VAPID_KEY' })
-                            .then((currentToken) => {
-                                if (currentToken) {
-                                    setNotificationToken(currentToken);
-                                    console.log('Notification token:', currentToken);
-                                } else {
-                                    console.log('No registration token available. Request permission to generate one.');
-                                }
-                            })
-                            .catch((err) => {
-                                console.log('An error occurred while retrieving token.', err);
-                            });
-                    } else {
-                        console.log("Notification permission denied");
-                    }
-                });
+            if(notificationToken){
+                console.log("Notification Token:",notificationToken);
             }
         });
 
-        // Ensure all asynchronous actions are done before navigating
         navigate("/userDashboard");
     };
 

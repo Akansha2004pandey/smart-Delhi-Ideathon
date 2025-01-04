@@ -41,7 +41,7 @@ const Login = () => {
                 </div>
                 <div className='flex items-center h-screen justify-center absolute top-0 w-full'>
 
-                    <Card className="border-2 border-dashed border-gray-200 rounded-lg p-4 shadow-md z-20">
+                    <Card className="border-2 border-solid border-gray-200 rounded-lg p-4 shadow-md z-20">
                         <CardHeader>
                             <CardTitle className='tracking-normal'>Welcome To SakhiSahayak</CardTitle>
                             <CardDescription className='tracking-normal'>"Empowering Connections, Enabling Support"</CardDescription>
@@ -56,7 +56,7 @@ const Login = () => {
                             </Button>
                             <Dialog>
                                 <DialogTrigger asChild>
-                                    <Button variant="default" onClick={proModal.onOpen}>
+                                    <Button variant="newcolor" onClick={proModal.onOpen}>
 
                                         Terms And Conditions</Button>
                                 </DialogTrigger>
