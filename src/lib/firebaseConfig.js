@@ -4,6 +4,7 @@ import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { getMessaging } from "firebase/messaging";
+import { connectFirestoreEmulator } from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -26,5 +27,6 @@ const analytics = getAnalytics(app);
 const auth=getAuth(app);
 const db = getFirestore(app);
 const messaging = getMessaging(app);
+
 
 export { app, analytics ,auth,db,messaging};

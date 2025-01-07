@@ -1,5 +1,3 @@
-
-
 import React from 'react'
 import { Users, Shield, Key, AlertTriangle } from 'lucide-react'
 import { Area, AreaChart } from "recharts"

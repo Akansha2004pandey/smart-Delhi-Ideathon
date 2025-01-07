@@ -127,7 +127,7 @@ const AddDetails = ({ onDetailsChange }) => {
 
             {/* Submit Button */}
             <DialogFooter>
-              <Button variant={'default'}>Save Details</Button>
+              <Button  variant={'default'}>Save Details</Button>
             </DialogFooter>
           </form>
         </DialogContent>

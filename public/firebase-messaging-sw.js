@@ -2,37 +2,28 @@ import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.1.0/firebas
 import { getMessaging, onBackgroundMessage } from 'https://www.gstatic.com/firebasejs/11.1.0/firebase-messaging.js';
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID,
-  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
+  apiKey: "AIzaSyD37hjYTu5FhynQ94VNTDY2uLnVISWVNBY",
+  authDomain: "smart-delhi-ideathon.firebaseapp.com",
+  projectId: "smart-delhi-ideathon",
+  storageBucket: "smart-delhi-ideathon.firebasestorage.app",
+  messagingSenderId: "1088473688215",
+  appId: "1:1088473688215:web:4e119aed7ccfa9757ee1d2",
+  measurementId: "G-82GS3YWPSF"
 };
 
 const app = initializeApp(firebaseConfig);
-const messaging = getMessaging(app);
-onBackgroundMessage(messaging, (payload) => {
-  console.log('Received background message ', payload);
 
-  const notificationTitle = payload.notification.title;
+const messaging = getMessaging(app);
+
+onBackgroundMessage(messaging, function(payload) {
+  console.log('[firebase-messaging-sw.js] Received background message ', payload);
+
+  const notificationTitle = 'Background Message Title';
   const notificationOptions = {
-    body: payload.notification.body,
-    icon: payload.notification.icon,
+    body: payload.data.body || 'Background Message body.',
+    icon: '/firebase-logo.png',
   };
+
+  // Show the notification
   self.registration.showNotification(notificationTitle, notificationOptions);
 });
-  if ('serviceWorker' in navigator) {
-            console.log('Service worker is supported.');
-    
-            navigator.serviceWorker.register('/firebase-messaging-sw.js')
-              .then((registration) => {
-                console.log('Service Worker registered successfully with scope:', registration.scope);
-              })
-              .catch((error) => {
-                console.error('Service Worker registration failed:', error);
-              });
-          } else {
-            console.error('Service worker is not supported by this browser.');
-          }

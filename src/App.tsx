@@ -12,8 +12,10 @@ import UserContext from './utils/UserContext';
 import { Navigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { User } from 'lucide-react';
-
+import Complain from './pages/complain/Complain';
 import UserDashboardLayout from './components/layout/userDashboard/UserDashboardLayout';
+import Feedback from './pages/feedback/Feedback';
+import Userdashboard from './pages/userdashboard/userdashboard';
 // PrivateRoute Component
 
 function App() {
@@ -62,11 +64,14 @@ function App() {
           <Route path="permissions" element={<Permissions />} />
         </Route>
         <Route path="/userLogin" element={<Login/>}/>
-        <Route path="/consent" element={isLoggedIn?<Consent/>:<Login/>}/>
-        <Route path="/userDashboard" element={isLoggedIn?<UserDashboardLayout />:<Login/>}>
+        <Route path="/consent" element={isLoggedIn?<Consent/>:<Navigate to="/userLogin"/>}/>
+        <Route path="/userDashboard" element={isLoggedIn?<UserDashboardLayout />:<Navigate to="/userLogin"/>}>
         
+          <Route index element={<Userdashboard />} />
+          <Route path="complaint" element={<Complain/>} />
+          <Route path="feedback" element={<Feedback/>} />
         </Route>
-        
+      
       </Routes>
     </Router>
     </UserContext.Provider>

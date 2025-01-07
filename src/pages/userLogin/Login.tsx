@@ -8,7 +8,9 @@ import { useProModalStore } from '@/components/hooks/promodal'
 import Promodal from '@/components/layout/promodal'
 import { signInAnonymously, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../lib/firebaseConfig";
+import { useUserIdStore } from '@/components/hooks/userId';
 const Login = () => {
+    const userIdModal = useUserIdStore();
     const { isLoggedIn, setIsLoggedIn } = useContext(UserContext);
     const proModal = useProModalStore();
     const navigate = useNavigate();
@@ -20,6 +22,7 @@ const Login = () => {
                     if (user) {
 
                         const uid = user.uid;
+                        userIdModal.setUserId(uid);
                         console.log("User signed in:", uid);
                     } else {
                         console.log("error");
@@ -43,7 +46,7 @@ const Login = () => {
 
                     <Card className="border-2 border-solid border-gray-200 rounded-lg p-4 shadow-md z-20">
                         <CardHeader>
-                            <CardTitle className='tracking-normal'>Welcome To SakhiSahayak</CardTitle>
+                            <CardTitle className='tracking-normal font-bold text-[#7575d1] flex gap-3'>Welcome To <div className='font-extrabold text-[#db3a93]'>SahasiShe</div></CardTitle>
                             <CardDescription className='tracking-normal'>"Empowering Connections, Enabling Support"</CardDescription>
 
                         </CardHeader>
@@ -51,7 +54,7 @@ const Login = () => {
                             <p>Log in anonymously to explore the app features without sharing personal details.</p>
                         </CardContent>
                         <CardFooter className='flex justify-between'>
-                            <Button variant="default" onClick={() => handleClick()}>
+                            <Button className='bg-[#7f2154] text-white hover:bg-[#db3a93] transition-colors duration-200' variant="default" onClick={() => handleClick()}>
                                 Login
                             </Button>
                             <Dialog>

@@ -4,8 +4,8 @@ import { Users, Shield, Key, Home, Menu, X,StepForwardIcon } from 'lucide-react'
 
 const navigation = [
   
-  { name: 'Raise Complaint', href: '/users', icon: Users },
-  { name: 'Add Feedback', href: '/roles', icon: Shield },
+  { name: 'Raise Complaint', href: '/userDashboard/complaint', icon: Users },
+  { name: 'Add Feedback', href: '/userDashboard/feedback', icon: Shield },
  
 ];
 
@@ -35,7 +35,7 @@ const Sidebar = () => {
         <div className="flex flex-col w-full h-full">
           <div className="flex  w-64  flex-col flex-grow pt-5 pb-4 overflow-y-auto rounded-3xl bg-white  shadow-lg">
             <h1 className="text-2xl font-bold text-center text-gray-900">
-              Permigo
+              SakhiSahayak
             </h1>
             <div className="flex-grow flex flex-col">
               <nav className="flex-1 px-4 mt-8 space-y-1">
