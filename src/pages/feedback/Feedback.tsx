@@ -4,6 +4,7 @@ import { useUserIdStore } from '@/components/hooks/userId';
 import { db } from "../../lib/firebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
 import { AlarmCheck } from 'lucide-react';
+import { Alert } from '@mui/material';
 
 const Feedback = () => {
   const userIdModal = useUserIdStore();
@@ -14,9 +15,9 @@ const Feedback = () => {
     time: '',
     anonymous: true,
   });
-
+     const [alertMessage, setAlertMessage] = useState({ type: '', text: '' });
   useEffect(() => {
-    // Check if userIdModal is properly initialized
+    
     if (!userIdModal.userId) {
       alert("User is not logged in.");
     }
@@ -26,7 +27,7 @@ const Feedback = () => {
     e.preventDefault();
     setLoading(true);
 
-    // Validate feedback before submitting
+    
     if (!formData.feedback.trim()) {
       alert("Feedback cannot be empty");
       setLoading(false);
@@ -54,15 +55,18 @@ const Feedback = () => {
         anonymous: updatedFormData.anonymous,
         userId: userIdModal.userId,
       });
-      alert("Feedback added successfully!");
+      setAlertMessage({ type: 'success', text: 'Feedback Submitted Successfully' });
+     
     } catch (error) {
       console.error(error);
-      alert("Error submitting feedback. Please try again.");
+       setAlertMessage({ type: 'error', text: 'Error Submitting Feedback' });
     }
-
+    
     setLoading(false);
+    
+    
   };
-
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -74,17 +78,22 @@ const Feedback = () => {
       anonymous: !prevData.anonymous,
     }));
   };
-
+  
   return (
     <div className="w-full max-w-screen-sm mx-auto p-4 sm:p-6 lg:p-8">
       <div className="flex justify-center items-center gap-3 mb-6">
- 
-        <div className='text-2xl sm:text-3xl text-white font-extrabold text-center'>
+
+        <div className='text-2xl sm:text-3xl text-white font-extrabold text-left'>
           Your Voice, Our Progress – Share Your Feedback!
         </div>
       </div>
 
       <div className="w-full bg-white p-6 rounded-lg shadow-lg">
+        {alertMessage.text && (
+          <Alert className='mb-5' severity={alertMessage.type} onClose={() => setAlertMessage({ type: '', text: '' })}>
+            {alertMessage.text}
+          </Alert>
+        )}
         <form onSubmit={handleSubmit} className="space-y-5">
           {!userIdModal.anonymous && (
             <div className="flex flex-col space-y-2">
@@ -115,6 +124,7 @@ const Feedback = () => {
               className="px-4 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               rows="4"
               placeholder="Describe your feedback"
+              required
             />
           </div>
 

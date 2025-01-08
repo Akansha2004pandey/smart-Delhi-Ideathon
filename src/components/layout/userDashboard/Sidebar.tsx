@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Users, Shield, Key, Home, Menu, X,StepForwardIcon } from 'lucide-react';
-
+import { Activity } from 'lucide-react';
 const navigation = [
   
   { name: 'Raise Complaint', href: '/userDashboard/complaint', icon: Users },
@@ -34,8 +34,9 @@ const Sidebar = () => {
       >
         <div className="flex flex-col w-full h-full">
           <div className="flex  w-64  flex-col flex-grow pt-5 pb-4 overflow-y-auto rounded-3xl bg-white  shadow-lg">
-            <h1 className="text-2xl font-bold text-center text-gray-900">
-              SakhiSahayak
+          <h1 className="text-2xl font-bold text-center text-[#070406] flex justify-center items-center gap-2">
+            <div><Activity className='bg-[#d05cbf] text-white w-10 h-10 rounded-3xl'/></div>
+            <div className='flex' >Sahasi<div className='text-blue-700'>She</div></div>
             </h1>
             <div className="flex-grow flex flex-col">
               <nav className="flex-1 px-4 mt-8 space-y-1">

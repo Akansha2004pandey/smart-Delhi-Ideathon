@@ -90,6 +90,7 @@ const Consent = () => {
                         identity: identity,
                     });
                     userIdModal.setAnonymous(false);
+                    
                
             } catch (error) {
                 console.error("Error saving non-anonymous user details:", error);
@@ -136,12 +137,12 @@ const Consent = () => {
             <div className='flex items-center absolute justify-center h-screen top-0 w-full'>
                 <Card className='w-1/3 min-w-[400px] border-2 border-solid border-gray-200 rounded-lg p-4 shadow-md z-20'>
                     <CardHeader>
-                        <CardTitle>Consent Form</CardTitle>
+                        <CardTitle className='text-2xl font-extrabold text-[#8e2981]'>Consent Form</CardTitle>
                         <CardDescription>
                             {!identity && (
                                 <Dialog>
                                     <DialogTrigger asChild>
-                                        <Button className='w-full mt-5' onClick={addDetails.onOpen}>Add Identity Details</Button>
+                                        <Button className='w-full mt-5 bg-[#341e8e]' onClick={addDetails.onOpen}>Add Identity Details</Button>
                                     </DialogTrigger>
                                 </Dialog>
                             )}
@@ -174,7 +175,7 @@ const Consent = () => {
                         </div>
                     </CardContent>
                     <CardFooter className='flex justify-end'>
-                        <Button disabled={loading} variant="default" onClick={handleSubmit}>Go to Dashboard</Button>
+                        <Button disabled={loading} className='bg-[#6c1968]' onClick={handleSubmit}>Go to Dashboard</Button>
                     </CardFooter>
                 </Card>
                 <AddDetails onDetailsChange={handleDetailsSubmit} />
