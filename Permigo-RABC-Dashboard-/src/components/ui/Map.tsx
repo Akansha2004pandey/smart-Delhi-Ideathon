@@ -1,32 +1,60 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useMemo,useState } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "tailwindcss/tailwind.css";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import { RootState } from "../../store";
+import { fetchCameras } from "../../store/slices/cameraSlice";
+import { ThunkDispatch } from "@reduxjs/toolkit";
 
-// Red icon for current location
-const customIconElement = L.divIcon({
+// Green icon for current location
+const greenIconElement = L.divIcon({
   html: `<div class='relative w-10 h-10 flex items-center justify-center'>
-            <div class='absolute w-full h-full bg-red-600 rounded-full animate-ping opacity-75'></div>
-            <MdLocationOn class='text-red-600 text-3xl' />
+            <div class='absolute w-full h-full bg-green-600 rounded-full animate-ping opacity-75'></div>
+            <div class='text-green-600 text-3xl'>📍</div>
           </div>`,
-  iconSize: [10, 10],
+  iconSize: [20, 20],
   className: "custom-marker-icon",
 });
 
-// Blue icon for user markers
-const blueIconElement = L.divIcon({
+// Blue icon for active users
+const activeUserIcon = L.divIcon({
   html: `<div class='relative w-10 h-10 flex items-center justify-center'>
             <div class='absolute w-full h-full bg-blue-600 rounded-full opacity-75'></div>
-            <MdLocationOn class='text-blue-600 text-3xl' />
+            <div class='text-blue-600 text-3xl'>📍</div>
+          </div>`,
+  iconSize: [20, 20],
+  className: "custom-marker-icon",
+});
+
+// Red icon for inactive users
+const inactiveUserIcon = L.divIcon({
+  html: `<div class='relative w-10 h-10 flex items-center justify-center'>
+            <div class='absolute w-full h-full bg-red-600 rounded-full opacity-75'></div>
+            <div class='text-red-600 text-3xl'>📍</div>
           </div>`,
   iconSize: [20, 20],
   className: "custom-marker-icon",
 });
 
 const Map: React.FC = () => {
-  const users = useSelector((state: RootState) => state.users.users);
+  const cameras = useSelector((state: RootState) => state.cameras.cameras);
+  const dispatch = useDispatch<ThunkDispatch<RootState, unknown, any>>();
+
+    const currentOrganization = useMemo(
+      () => JSON.parse(localStorage.getItem('currentOrganization') || '{}'),
+      []
+    );
+    
+
+      useEffect(() => {
+        if (currentOrganization?.uid) {
+          dispatch(fetchCameras(currentOrganization.uid));
+        }
+      }, [dispatch, currentOrganization?.uid]);
+
+
+
 
   useEffect(() => {
     const map = L.map("map").setView([0, 0], 2); // Default world view
@@ -40,7 +68,7 @@ const Map: React.FC = () => {
         (position) => {
           const location = [position.coords.latitude, position.coords.longitude];
           map.setView(location, 15);
-          L.marker(location, { icon: customIconElement })
+          L.marker(location, { icon: greenIconElement })
             .addTo(map)
             .bindPopup("You are here")
             .openPopup();
@@ -51,10 +79,12 @@ const Map: React.FC = () => {
       );
     }
 
-    users.forEach((user) => {
+
+    cameras.forEach((user) => {
       const { latitude, longitude, name, email, status } = user;
       if (latitude && longitude) {
-        L.marker([parseFloat(latitude), parseFloat(longitude)], { icon: blueIconElement })
+        const icon = status === "active" ? activeUserIcon : inactiveUserIcon;
+        L.marker([parseFloat(latitude), parseFloat(longitude)], { icon })
           .addTo(map)
           .bindPopup(
             `<strong>${name}</strong><br>Email: ${email}<br>Status: ${status}`
@@ -78,7 +108,7 @@ const Map: React.FC = () => {
     locateButton.addTo(map);
 
     map.on("locationfound", (e) => {
-      L.marker([e.latlng.lat, e.latlng.lng], { icon: customIconElement })
+      L.marker([e.latlng.lat, e.latlng.lng], { icon: greenIconElement })
         .addTo(map)
         .bindPopup("You are here")
         .openPopup();
@@ -88,10 +118,11 @@ const Map: React.FC = () => {
       alert("Unable to retrieve your location");
     });
 
+
     return () => {
       map.remove();
     };
-  }, [users]);
+  }, [cameras]);
 
   return (
     <div>

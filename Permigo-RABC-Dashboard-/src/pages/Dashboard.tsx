@@ -13,13 +13,13 @@ const sparklineData = {
     { value: 20 }, { value: 10 }, { value: 160 }, { value: 150 }, { value: 250 } 
   ],
   abnormalities: [
-    { value: 4 }, { value: 16 }, { value: 2 }, { value: 20 }, { value: 78 },
-    { value: 4 }, { value: 16 }, { value: 2 }, { value: 20 }, { value: 78 },
-    { value: 4 }, { value: 16 }, { value: 2 }, { value: 20 }, { value: 78 },
-    { value: 4 }, { value: 16 }, { value: 2 }, { value: 20 }, { value: 78 },
+    { value: 4 }, { value: 16 }, { value: 2 }, { value: 20 }, { value: 10 },
+    { value: 4 }, { value: 16 }, { value: 2 }, { value: 20 }, { value: 10 },
+    { value: 4 }, { value: 16 }, { value: 2 }, { value: 20 }, { value: 10 },
+    { value: 4 }, { value: 16 }, { value: 2 }, { value: 20 }, { value: 10 },
   ],
   complaints: [
-    { value: 2 }, { value: 8 }, { value: 3 }, { value: 10 }, { value: 5 },
+    { value: 2 }, { value: 8 }, { value: 3 }, { value: 10 }, { value: 2 },
     { value: 2 }, { value: 8 }, { value: 3 }, { value: 10 }, { value: 5 },
     { value: 2 }, { value: 8 }, { value: 3 }, { value: 10 }, { value: 5 },
     { value: 2 }, { value: 8 }, { value: 3 }, { value: 10 }, { value: 5 },

@@ -4,10 +4,10 @@ import { Video } from 'lucide-react';
 interface StreamModalProps {
   isOpen: boolean;
   onClose: () => void;
-  userName: string;
+  cameraName: string;
 }
 
-const StreamModal: React.FC<StreamModalProps> = ({ isOpen, onClose, userName }) => {
+const StreamModal: React.FC<StreamModalProps> = ({ isOpen, onClose, cameraName }) => {
   if (!isOpen) return null;
 
   return (
@@ -16,7 +16,7 @@ const StreamModal: React.FC<StreamModalProps> = ({ isOpen, onClose, userName }) 
         <div className="p-4 border-b flex items-center justify-between">
           <h2 className="text-lg font-semibold text-gray-800 flex items-center">
             <Video className="mr-2" size={24} />
-            {userName}'s Stream
+            {cameraName}'s Stream
           </h2>
           <button
             onClick={onClose}
@@ -26,7 +26,7 @@ const StreamModal: React.FC<StreamModalProps> = ({ isOpen, onClose, userName }) 
           </button>
         </div>
         <div className="p-6">
-          <p className="text-gray-700">The stream is now open for {userName}!</p>
+          <p className="text-gray-700">The stream is now open for {cameraName}!</p>
           {/* Add your video player or stream integration logic here */}
           <div className="mt-4 flex justify-end">
             <button

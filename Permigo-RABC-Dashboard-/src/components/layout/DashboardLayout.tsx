@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
 
+
 const DashboardLayout = () => {
   return (
     <div className="relative min-h-screen bg-gray-50">

@@ -1,32 +1,36 @@
 import React, { useState } from 'react';
-import StreamModal from './StreamModal'; // Import the StreamModal component
-import { User, Edit2, Trash2, ToggleLeft, ToggleRight, Video } from 'lucide-react';
-import { User as UserType } from '../../types';
+import StreamModal from './StreamModal';
+import { Camera as CameraIcon, Edit2, Trash2, ToggleLeft, ToggleRight, Video } from 'lucide-react';
+import { Camera as CameraType } from '../../types';
 
-interface UserTableProps {
-  users: UserType[];
-  onEdit: (user: UserType) => void;
+interface CameraTableProps {
+  cameras: CameraType[];
+  onEdit: (camera: CameraType) => void;
   onDelete: (id: string) => void;
   onToggleStatus: (id: string) => void;
 }
 
-const UserTable: React.FC<UserTableProps> = ({
-  users,
+const CameraTable: React.FC<CameraTableProps> = ({
+  cameras,
   onEdit,
   onDelete,
   onToggleStatus,
 }) => {
-  const [selectedUser, setSelectedUser] = useState<UserType | null>(null);
+  const [selectedCamera, setSelectedCamera] = useState<CameraType | null>(null);
 
-  const openStream = (user: UserType) => {
-    if (user.status === 'active') {
-      setSelectedUser(user);
+  const openStream = (camera: CameraType) => {
+    if (camera.status === 'active') {
+      setSelectedCamera(camera);
     }
   };
 
   const closeModal = () => {
-    setSelectedUser(null);
+    setSelectedCamera(null);
   };
+
+  const currentOrganization: { email: string } | null = JSON.parse(
+    localStorage.getItem('currentOrganization') || 'null'
+  );
 
   return (
     <>
@@ -37,36 +41,41 @@ const UserTable: React.FC<UserTableProps> = ({
               <table className="min-w-full divide-y divide-gray-300 cursor-pointer">
                 <thead className="bg-gray-50">
                   <tr>
-                    <th className="px-3 py-3.5 text-left text-md font-semibold text-gray-900">Name</th>
-                    <th className="px-3 py-3.5 text-left text-md font-semibold text-gray-900">Email</th>
+                    <th className="px-3 py-3.5 text-left text-md font-semibold text-gray-900">Camera Name</th>
+                    <th className="px-3 py-3.5 text-left text-md font-semibold text-gray-900">Organization Email</th>
                     <th className="px-3 py-3.5 text-left text-md font-semibold text-gray-900">Stream</th>
                     <th className="px-6 py-3.5 text-left text-md font-semibold text-gray-900">Status</th>
                     <th className="px-3 py-3.5 text-left text-md font-semibold text-gray-900">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white">
-                  {users.map((user) => (
-                    <tr key={user.id}>
+                  {cameras.map((camera) => (
+                  
+                    <tr key={camera.id}>
+                      
                       <td className="whitespace-nowrap px-3 py-4 text-md text-gray-900">
                         <div className="flex items-center">
-                          <User
+                          <CameraIcon
                             className={`h-8 w-8 p-1 text-white rounded-full ${
-                              user.status === 'active' ? 'bg-indigo-500' : 'bg-red-500'
+                              camera.status === 'active' ? 'bg-indigo-500' : 'bg-red-500'
                             } mr-2`}
                           />
-                          {user.name}
+                          {camera.name}
                         </div>
                       </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{user.email}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        {currentOrganization?.email || 'N/A'}
+                      </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                         <button
-                          onClick={() => openStream(user)}
+                          onClick={() => openStream(camera)}
                           className={`flex items-center space-x-2 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 ${
-                            user.status === 'active'
+                            camera.status === 'active'
                               ? 'bg-indigo-500 text-white hover:bg-indigo-600 focus:ring-indigo-400'
                               : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                           }`}
-                          disabled={user.status !== 'active'}
+                          disabled={camera.status !== 'active'}
+                          title={camera.status !== 'active' ? 'Stream unavailable for inactive cameras' : ''}
                         >
                           <Video size={20} />
                           <span>Open Stream</span>
@@ -75,39 +84,39 @@ const UserTable: React.FC<UserTableProps> = ({
                       <td className="whitespace-nowrap px-3 py-4 text-sm">
                         <span
                           className={`inline-flex rounded-full px-2 text-sm font-semibold leading-5 ${
-                            user.status === 'active'
+                            camera.status === 'active'
                               ? 'bg-green-100 text-green-800'
                               : 'bg-red-100 text-red-800'
                           }`}
                         >
-                          {user.status}
+                          {camera.status}
                         </span>
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 flex justify-between">
-                        <div className="flex space-x-3">
+                        <div className="flex space-x-4">
                           <button
-                            onClick={() => onEdit(user)}
+                            onClick={() => onEdit(camera)}
                             className="text-indigo-600 hover:text-indigo-900"
                           >
-                            <Edit2 className="md:h-6 md:w-6 h-4 w-4" />
+                            <Edit2 className="h-5 w-5" />
                           </button>
                           <button
-                            onClick={() => onToggleStatus(user.id)}
+                            onClick={() => onToggleStatus(camera.id)}
                             className="text-gray-600 hover:text-gray-900"
                           >
-                            {user.status === 'active' ? (
-                              <ToggleRight className="md:h-6 md:w-6 h-5 w-5" />
+                            {camera.status === 'active' ? (
+                              <ToggleRight className="h-5 w-5" />
                             ) : (
-                              <ToggleLeft className="md:h-6 md:w-6 h-5 w-5" />
+                              <ToggleLeft className="h-5 w-5" />
                             )}
                           </button>
+                          <button
+                            onClick={() => onDelete(camera.id)}
+                            className="text-red-600 hover:text-red-900"
+                          >
+                            <Trash2 className="h-5 w-5" />
+                          </button>
                         </div>
-                        <button
-                          onClick={() => onDelete(user.id)}
-                          className="text-red-600 hover:text-red-900"
-                        >
-                          <Trash2 className="md:h-6 md:w-6 h-4 w-4 " />
-                        </button>
                       </td>
                     </tr>
                   ))}
@@ -117,15 +126,15 @@ const UserTable: React.FC<UserTableProps> = ({
           </div>
         </div>
       </div>
-      {selectedUser && (
+      {selectedCamera && (
         <StreamModal
-          isOpen={!!selectedUser}
+          isOpen={!!selectedCamera}
           onClose={closeModal}
-          userName={selectedUser.name}
+          cameraName={selectedCamera.name}
         />
       )}
     </>
   );
 };
 
-export default UserTable;
+export default CameraTable;
