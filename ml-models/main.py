@@ -6,6 +6,7 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.image import img_to_array
 from io import BytesIO
 from PIL import Image
+from fastapi.middleware.cors import CORSMiddleware
 # import uvicorn
 import os
 # Load models
@@ -19,6 +20,14 @@ gender_labels = ['Male', 'Female']
 
 # Initialize FastAPI app
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 def process_image(image_bytes: BytesIO):
     # Convert byte image to array
