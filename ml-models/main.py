@@ -69,7 +69,7 @@ def read_root():
     return {"message": "Hello World!"}
 
 
-@app.post("/predict/")
+@app.post("/predict")
 async def predict(file: UploadFile = File(...)):
     try:
         # Read image file and process
