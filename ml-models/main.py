@@ -6,8 +6,8 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.image import img_to_array
 from io import BytesIO
 from PIL import Image
-import uvicorn
-
+# import uvicorn
+import os
 # Load models
 face_classifier = cv2.CascadeClassifier('models/haarcascade_frontalface_default.xml')
 emotion_model = load_model('models/emotion_detection_model_100epochs.h5')
@@ -85,8 +85,10 @@ async def predict(file: UploadFile = File(...)):
     except Exception as e:
         return JSONResponse(status_code=400, content={"message": f"Error processing image: {str(e)}"})
 
+# if __name__ == '__main__':
+#     uvicorn.run(app, host='127.0.0.1', port=8000)
 if __name__ == '__main__':
-    uvicorn.run(app, host='127.0.0.1', port=8000)
-
+    import uvicorn
+    uvicorn.run(app, host='0.0.0.0', port=int(os.getenv('PORT', 8000)))
 # #uvicorn main:app --reload
 

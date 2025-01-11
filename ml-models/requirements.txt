@@ -4,3 +4,5 @@ opencv_python
 Pillow
 tensorflow
 uvicorn
+python-multipart
+os
