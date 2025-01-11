@@ -1,19 +1,67 @@
-from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi import FastAPI, File, UploadFile
+from fastapi.responses import JSONResponse
 import numpy as np
-from tensorflow.keras.models import load_model
 import cv2
+from tensorflow.keras.models import load_model
+from tensorflow.keras.preprocessing.image import img_to_array
 from io import BytesIO
-from pydantic import BaseModel
+from PIL import Image
+import uvicorn
 
+# Load models
 face_classifier = cv2.CascadeClassifier('models/haarcascade_frontalface_default.xml')
 emotion_model = load_model('models/emotion_detection_model_100epochs.h5')
 gender_model = load_model('models/gender_model_100epochs.h5')
 
-
+# Labels
 class_labels = ['Angry', 'Disgust', 'Fear', 'Happy', 'Neutral', 'Sad', 'Surprise']
 gender_labels = ['Male', 'Female']
 
+# Initialize FastAPI app
 app = FastAPI()
+
+def process_image(image_bytes: BytesIO):
+    # Convert byte image to array
+    image = Image.open(image_bytes)
+    image = np.array(image)
+    print("File is received")
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    faces = face_classifier.detectMultiScale(gray, 1.3, 5)
+    
+    men_count = 0
+    women_count = 0
+    predictions = []
+
+    for (x, y, w, h) in faces:
+        # Emotion detection
+        roi_gray = gray[y:y + h, x:x + w]
+        roi_gray = cv2.resize(roi_gray, (48, 48), interpolation=cv2.INTER_AREA)
+        roi = roi_gray.astype('float') / 255.0
+        roi = img_to_array(roi)
+        roi = np.expand_dims(roi, axis=0)
+        emotion_preds = emotion_model.predict(roi)[0]
+        emotion_label = class_labels[emotion_preds.argmax()]
+
+        # Gender detection
+        roi_color = image[y:y + h, x:x + w]
+        roi_color = cv2.resize(roi_color, (200, 200), interpolation=cv2.INTER_AREA)
+        gender_predict = gender_model.predict(np.array(roi_color).reshape(-1, 200, 200, 3))
+        gender_predict = (gender_predict >= 0.5).astype(int)[:, 0]
+        gender_label = gender_labels[gender_predict[0]]
+
+        predictions.append({
+            "face_location": [int(x), int(y), int(w), int(h)],
+            "emotion": emotion_label,
+            "gender": gender_label
+        })
+
+        # Update counts
+        if gender_label == 'Male':
+            men_count += 1
+        elif gender_label == 'Female':
+            women_count += 1
+
+    return predictions, men_count, women_count
 
 @app.get("/")
 def read_root():
@@ -23,52 +71,21 @@ def read_root():
 
 @app.post("/predict/")
 async def predict(file: UploadFile = File(...)):
-    # Read the image data from the file
     try:
-        print("File received:", file.filename)
-        image_data = await file.read()
-        img_array = np.frombuffer(image_data, np.uint8)
-        img = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
-
-        # Check if image is loaded
-        if img is None:
-            raise HTTPException(status_code=400, detail="Invalid image file")
-        # Convert image to grayscale for face detection
-        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        faces = face_classifier.detectMultiScale(gray, 1.3, 5)
-    
-        response = {"gender": "", "emotion": "", "face_location": []}
+        # Read image file and process
+        image_bytes = BytesIO(await file.read())
+        predictions, men_count, women_count = process_image(image_bytes)
         
-        for (x, y, w, h) in faces:
-            # Crop face from image
-            face = img[y:y + h, x:x + w]
+        return JSONResponse(content={
+            "predictions": predictions,
+            "men_count": men_count,
+            "women_count": women_count
+        })
     
-            # Emotion Detection
-            face_gray = gray[y:y + h, x:x + w]
-            face_gray = cv2.resize(face_gray, (48, 48), interpolation=cv2.INTER_AREA)
-            face_gray = face_gray.astype('float32') / 255
-            face_gray = np.expand_dims(face_gray, axis=-1)
-            face_gray = np.expand_dims(face_gray, axis=0)
-            
-            emotion_preds = emotion_model.predict(face_gray)
-            emotion_label = class_labels[np.argmax(emotion_preds)]
-            
-            # Gender Detection
-            face_color = cv2.resize(face, (200, 200))
-            face_color = np.expand_dims(face_color, axis=0)  # Add batch dimension
-            print("face_Color shape: "+face_color.shape)
-            gender_preds = gender_model.predict(face_color)
-            gender_label = gender_labels[0] if gender_preds[0] < 0.5 else gender_labels[1]
-    
-            # Add to the response data
-            response['face_location'].append([int(x), int(y), int(w), int(h)])
-            response['gender'] = gender_label
-            response['emotion'] = emotion_label
-    
-        return response
     except Exception as e:
-        print(f"Error occurred: {str(e)}")  # Debugging
-        raise HTTPException(status_code=500, detail=str(e))
-    
-    
-    
+        return JSONResponse(status_code=400, content={"message": f"Error processing image: {str(e)}"})
+
+if __name__ == '__main__':
+    uvicorn.run(app, host='127.0.0.1', port=8000)
+
+#uvicorn main:app --reload
