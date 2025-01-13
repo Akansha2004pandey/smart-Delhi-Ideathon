@@ -1,0 +1,18 @@
+{
+  "projects": {
+    "default": "smart-delhi-ideathon"
+  },
+  "targets": {
+    "smart-delhi-ideathon": {
+      "hosting": {
+        "userFrontend": [
+          "user-site-123"
+        ],
+        "organizationDashboard": [
+          "dashboard-site-123"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

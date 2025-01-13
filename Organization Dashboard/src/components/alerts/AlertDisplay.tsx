@@ -21,7 +21,7 @@ export function AlertDisplay({ activeTab }: AlertDisplayProps) {
       evidence: [
         {
           type: 'image',
-          url: '/public/alertone.jpeg', // Updated path assuming the public folder
+          url: '/alertone.jpeg', // Updated path assuming the public folder
         },
       ],
       isAddressed: false,
@@ -38,7 +38,7 @@ export function AlertDisplay({ activeTab }: AlertDisplayProps) {
       evidence: [
         {
           type: 'image',
-          url: '/public/alerttwo.jpg',
+          url: '/alerttwo.jpg',
         },
       ],
       isAddressed: false,
@@ -55,7 +55,7 @@ export function AlertDisplay({ activeTab }: AlertDisplayProps) {
       evidence: [
         {
           type: 'image',
-          url: '/public/aletthree.jpg',
+          url: '/aletthree.jpg',
         },
       ],
       isAddressed: false,
