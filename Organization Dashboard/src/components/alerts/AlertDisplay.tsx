@@ -127,8 +127,8 @@ export function AlertDisplay({ activeTab }: AlertDisplayProps) {
   
   const fetchAlerts = async () => {
     try {
-      setLoading(true);
-      await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate API delay
+     
+    
       setAlerts(dummyAlerts);
       setError(null);
     } catch (err) {
@@ -145,35 +145,78 @@ export function AlertDisplay({ activeTab }: AlertDisplayProps) {
   }, []);
 
 
-  const sendAlertEmail = async (alert: Alert) => {
+  // const sendAlertEmail = async (alert: Alert) => {
+  //   console.log(currentOrganization.email)
+  //   const templateParams = {
+  //     alert_location: alert.location.area,
+  //     alert_description: alert.description,
+  //     alert_severity: alert.severity,
+  //     alert_time: new Date(alert.timestamp).toLocaleString(),
+  //     user_email: currentOrganization.email, // Replace with dynamic email
+  //   };
+
+  //   try {
+  //     await toast.promise(
+        
+  //       emailjs.send('service_m1q5lne', 'template_rlc9amc', templateParams),
+  //       {
+  //         loading: `Sending email to notify the organization...`,
+  //         success: `Email sent successfully!`,
+  //         error: `Failed to send email for alert ID ${alert.id}.`,
+  //       },
+ 
+        
+  //     );
+
+  //     // Mark this alert as having its email sent
+  //     setEmailSent((prev) => ({ ...prev, [alert.id]: true }));
+  //   } catch (err) {
+  //     console.error(`Failed to send email for alert ID ${alert.id}:`, err);
+  //   }
+  // };
+
+
+  const sendAlertEmail = async (alert) => {
+    console.log(currentOrganization.email);
+  
     const templateParams = {
       alert_location: alert.location.area,
       alert_description: alert.description,
       alert_severity: alert.severity,
       alert_time: new Date(alert.timestamp).toLocaleString(),
-      user_email: 'user@example.com', // Replace with dynamic email
+      user_email: currentOrganization.email, // Replace with dynamic email
     };
-
+  
+    // Mock email sending
+    const mockEmailSend = () => {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          if (Math.random() > 0.1) {
+            resolve(`Mock email sent successfully for service  and template `);
+          } else {
+            reject(new Error(`Mock email failed to send.`));
+          }
+        }, 1000); // Simulate network delay
+      });
+    };
+  
     try {
       await toast.promise(
-        
-        emailjs.send('service_mlrleye', 'template_af79lqb', templateParams),
+        mockEmailSend('service_m1q5lne', 'template_rlc9amc', templateParams),
         {
           loading: `Sending email to notify the organization...`,
           success: `Email sent successfully!`,
           error: `Failed to send email for alert ID ${alert.id}.`,
-        },
- 
-        
+        }
       );
-
+  
       // Mark this alert as having its email sent
       setEmailSent((prev) => ({ ...prev, [alert.id]: true }));
     } catch (err) {
       console.error(`Failed to send email for alert ID ${alert.id}:`, err);
     }
   };
-
+  
   const processAlerts = async () => {
     for (const alert of dummyAlerts) {
       // Skip alerts for which the email has already been sent

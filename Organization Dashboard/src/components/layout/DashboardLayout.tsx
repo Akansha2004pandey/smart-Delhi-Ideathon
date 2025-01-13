@@ -5,6 +5,7 @@ import Navbar from './Navbar';
 import { ChatBot } from '../chatbot/Chatbot';
 
 
+
 const DashboardLayout = () => {
   return (
     <div className="relative min-h-screen bg-gray-50">

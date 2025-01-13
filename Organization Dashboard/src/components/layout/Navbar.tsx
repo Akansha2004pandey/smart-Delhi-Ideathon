@@ -7,7 +7,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.clear(); // Clear all items from localStorage
-    navigate('/'); // Redirect to the homepage
+    window.location.href = '/'; // Redirect to the homepage using window.location
   };
   const currentOrganization = JSON.parse(localStorage.getItem('currentOrganization'));
 

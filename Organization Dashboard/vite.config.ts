@@ -9,9 +9,9 @@ export default defineConfig({
       '/api': {
         target: 'https://generativeai.googleapis.com',
         changeOrigin: true,
-        secure: false,
-        rewrite: (path) => path.replace(/^\/api/, '') // Proxy '/api' to the actual endpoint
-      }
-    }
+        secure: true,
+      },
+    },
+    
   }
 });

@@ -25,7 +25,7 @@ function ProtectedRoute() {
 function App() {
 
   useEffect(() => {
-    emailjs.init('g3LAnEOJfitb7OWii'); // Replace with your actual user ID
+    emailjs.init('yq2SyVfbIkV81oJKI'); // Replace with your actual user ID
   }, []); // Runs once when the app loads
   const isLoggedIn = localStorage.getItem('currentOrganization');
 
