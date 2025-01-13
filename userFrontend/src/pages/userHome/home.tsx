@@ -37,7 +37,7 @@ const Home = () => {
                                 Join as User
                             </Button>
                      
-                            <Button size="lg" variant="outline" className="group border-2 font-bold text-indigo-700 px-8 py-4 hover:text-indigo-900 rounded-md shadow-lg transition duration-300" onClick={handleComplainClick}>
+                            <Button size="lg" variant="outline" className="group border-2 font-bold text-indigo-700 px-8 py-4 hover:text-indigo-700 rounded-md shadow-lg transition duration-300" onClick={handleComplainClick}>
                                 <Siren className="hidden md:block mr-2 h-5 w-5" />
                                 File A Complaint
                             </Button>

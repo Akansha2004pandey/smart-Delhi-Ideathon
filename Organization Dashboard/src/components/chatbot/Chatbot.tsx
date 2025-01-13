@@ -110,7 +110,7 @@ export function ChatBot() {
           <div className="fixed  top-[49%] w-[90%] right-4 bottom-1 transform -translate-y-[49%]  h-[90%] z-50 bg-white shadow-lg flex flex-col animate-slide-up md:right-6   rounded-t-3xl">
             {/* Chat header */}
             <div className="relative">
-              <div className="h-20 bg-gradient-to-r from-indigo-700 via-indigo-800 to-indigo-800 px-4 flex items-center justify-between rounded-t-2xl shadow-lg">
+              <div className="h-20 bg-gradient-to-r from-indigo-800 via-indigo-700 to-indigo-600 px-4 flex items-center justify-between rounded-t-2xl shadow-lg">
                 <div className="flex items-center space-x-3">
                   <Bot className="w-8 h-8 text-white" />
                   <span className="font-bold text-white text-lg">SahasiShe HelpDesk</span>

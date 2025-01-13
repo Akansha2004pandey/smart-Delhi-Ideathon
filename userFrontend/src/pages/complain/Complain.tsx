@@ -80,7 +80,10 @@ const Complain = () => {
     return (
         <>
             <div className="w-3/4  mx-auto py-8 mb-10">
-            <div className='text-3xl text-white font-extrabold mb-5 text-center'>Raise a Complaint</div>
+            <div className='text-3xl text-white font-extrabold mb-5 text-center'>
+                
+                Raise a Complaint
+                </div>
                 {alertMessage.text && (
                     <Alert severity={alertMessage.type} onClose={() => setAlertMessage({ type: '', text: '' })}>
                         {alertMessage.text}
@@ -96,7 +99,7 @@ const Complain = () => {
                             name="location"
                             value={`Latitude: ${formData.location.latitude || 'loading'}, Longitude: ${formData.location.longitude || 'loading'}`}
                             readOnly
-                            className="px-4 py-2 border border-gray-300 rounded-md text-sm bg-gray-100"
+                             className="mt-1 block w-full rounded-md bg-gray-200 text-gray-600 shadow-sm border border-gray-300 focus:outline-none cursor-not-allowed text-lg py-2 px-3"
                         />
                     </div>
 
@@ -107,7 +110,7 @@ const Complain = () => {
                             name="complain"
                             value={formData.complain}
                             onChange={handleInputChange}
-                            className="px-4 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            className="mt-1 block w-full rounded-md bg-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg py-2 px-3 border outline-none"
                             rows="4"
                             placeholder="Describe your complaint"
                             required
@@ -117,7 +120,7 @@ const Complain = () => {
                     <Button
                         disabled={loading}
                         variant="default"
-                        className="w-full py-3 bg-[#5634dc] text-white font-semibold text-lg rounded-md hover:bg-[#766acb] transition duration-300"
+                        className="w-full py-3 bg-indigo-800 text-white font-semibold text-lg rounded-md hover:bg-indigo-800 transition duration-300"
                     >
                         Submit Complaint
                     </Button>

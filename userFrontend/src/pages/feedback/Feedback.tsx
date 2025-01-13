@@ -94,7 +94,7 @@ const Feedback = () => {
               name="feedback"
               value={formData.feedback}
               onChange={handleInputChange}
-              className="px-4 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+             className="mt-1 block w-full rounded-md bg-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg py-2 px-3 border outline-none"
               rows="4"
               placeholder="Describe your feedback"
               required
@@ -104,7 +104,7 @@ const Feedback = () => {
           <Button
             disabled={loading}
             variant="default"
-            className="w-full py-3 bg-[#5634dc] text-white font-semibold text-lg rounded-md hover:bg-[#766acb] transition duration-300"
+           className="w-full py-3 bg-indigo-800 text-white font-semibold text-lg rounded-md hover:bg-indigo-800 transition duration-300"
           >
             {loading ? 'Submitting...' : 'Submit Feedback'}
           </Button>
