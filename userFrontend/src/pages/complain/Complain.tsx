@@ -40,19 +40,16 @@ const Complain = () => {
                 userId: userIdModal.userId,
             }
             const complain=await createComplain(complaindata);
-            if(complain===201){
-                setAlertMessage({ type: 'success', text: 'Complaint Submitted Successfully' });
-            }           
-            else{
-                setAlertMessage({ type: 'error', text: 'Error Submitting Complaint' });
-            }
+            console.log(complain);
+            setAlertMessage({ type: 'success', text: 'Complaint Submitted Successfully' });
+            
             
            
         } catch (error) {
             console.error(error);
             setAlertMessage({ type: 'error', text: 'Error Submitting Complaint' });
         }
-
+        
         setLoading(false);
         
     };
