@@ -111,7 +111,7 @@ export default function Dashboard() {
   className="relative flex overflow-hidden rounded-lg bg-white shadow sm:px-6 sm:py-6"
 >
   {/* Left Content */}
-  <div className="flex-1 z-30 px-4 pt-5 pb-16">
+  <div className="flex-1 z-10 px-4 pt-5 pb-16">
     <dt>
     <div className="absolute rounded-md ">
   <Icon className={`h-12 w-12 font-bold ${item.color}`} aria-hidden="true" />
