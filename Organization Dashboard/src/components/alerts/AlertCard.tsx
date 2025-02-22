@@ -12,14 +12,15 @@ import {
   X 
 } from 'lucide-react';
 import { Alert, Severity } from '../types/alert';
-import emailjs from 'emailjs-com';
-import toast, { Toaster } from 'react-hot-toast';
+import { RootState } from '../../store';
+import { useDispatch, useSelector } from 'react-redux';
+import { markAlertAsAddressed } from '../../store/slices/alertSlice';
 
-const severityColors: Record<Severity, string> = {
-  High: 'bg-red-100 text-red-800',
-  Medium: 'bg-yellow-100 text-yellow-800',
-  Low: 'bg-green-100 text-green-800',
-};
+// const severityColors: Record<Severity, string> = {
+//   High: 'bg-red-100 text-red-800',
+//   Medium: 'bg-yellow-100 text-yellow-800',
+//   Low: 'bg-green-100 text-green-800',
+// };
 
 const alertStyles = {
   Critical: {
@@ -72,19 +73,30 @@ export function AlertCard({ alert, onDismiss,response,loading }: AlertCardProps)
 
   const style = alertStyles[alert.severity];
 
-  
+  const isAddressed = useSelector(
+    (state: RootState) =>
+      state.alerts.alerts.find((a) => a.id === alert.id)?.isAddressed
+  );
+
+  const dispatch = useDispatch();
 
   const handleDismiss = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (alert.isAddressed) {
+    if (isAddressed) {
       setIsShaking(true);
       setTimeout(() => setIsShaking(false), 500);
       return;
     }
+  
+    dispatch(markAlertAsAddressed(alert.id));
     setIsDismissing(true);
     setTimeout(() => onDismiss(alert.id), 400);
+    
   };
 
+
+
+  
 
 
 

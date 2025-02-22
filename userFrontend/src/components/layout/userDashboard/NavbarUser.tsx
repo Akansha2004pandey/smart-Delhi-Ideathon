@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Bell, DoorOpen, Settings, User } from 'lucide-react'
+import { Bell, DoorOpen, Settings, Target, User } from 'lucide-react'
 import { useState, useEffect } from 'react';
 import { useUserIdStore } from '@/components/hooks/userId';
 import { Button } from '@/components/ui/button';
@@ -27,15 +27,22 @@ const NavbarUser = () => {
       <div className="flex justify-between items-center h-10">
         <div className="flex  items-center space-x-4">
           <div className="relative bg-white/50 mt-3 flex rounded-md backdrop-blur px-4 sm:px-4 lg:px-4 ">
-
+          
           </div>
+          <div className='flex items-center gap-4 justify-center'>
+          <button 
+            onClick={() => navigate('/train')}
+           className="flex mt-3 items-center space-x-2 bg-indigo-500 text-white px-4 py-2 rounded-lg shadow hover:bg-indigo-600 transition">
+            <Target className="h-5 mr-2 w-5" />
+            Train Yourself
+          </button>
           <button
             onClick={handleClick}
            className="flex  mt-3 items-center space-x-2 px-4 py-2  bg-red-500 text-white font-semibold rounded-md shadow-md hover:bg-red-600 transition-transform transform hover:scale-105">
             <DoorOpen className="h-5 w-5" />
             <span>Logout</span>
-          </button>
-
+          </button> 
+          </div>
         </div>
         
       </div>
