@@ -11,6 +11,7 @@ import UserRegister from './pages/Authentication/UserRegister';
 import RegisterHome from './components/layout/AnonymousDashboard/registerHome';
 import RegisteredUserContext from './utils/RegisteredUserContext';
 import { getAuth,onAuthStateChanged } from 'firebase/auth';
+import Training from './components/ui/Training';
 // PrivateRoute Component
 const PrivateRoute = ({ children }: any) => {
   const { isLoggedIn } = useContext(UserContext);
@@ -62,6 +63,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/userLogin" element={<Login />} />
             <Route path="/userRegister" element={<UserRegister />} />
+            <Route path='train' element={<Training/>}/>
             <Route
               path="/userRegister/home"
               element={
@@ -82,6 +84,7 @@ function App() {
               <Route index element={<Complain />} />
               <Route path="complaint" element={<Complain />} />
               <Route path="feedback" element={<Feedback />} />
+             
             </Route>
           </Routes>
         </Router>
