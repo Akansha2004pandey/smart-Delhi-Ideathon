@@ -8,59 +8,7 @@ import { toast, Toaster } from 'react-hot-toast';
 import emailjs from 'emailjs-com';
 
 export function AlertDisplay({ activeTab }: AlertDisplayProps) {
-  const dummyAlerts: Alert[] = [
-    {
-      id: '1',
-      location: {
-        city: 'New Delhi',
-        area: 'Connaught Place',
-      },
-      timestamp: new Date(Date.now() - 1000 * 60 * 30).toISOString(), // 30 minutes ago
-      description: 'Lone woman surrounded by 3+ men showing fear.',
-      severity: 'Critical',
-      evidence: [
-        {
-          type: 'image',
-          url: '/alertone.jpeg', // Updated path assuming the public folder
-        },
-      ],
-      isAddressed: false,
-    },
-    {
-      id: '2',
-      location: {
-        city: 'New Delhi',
-        area: 'South Extension',
-      },
-      timestamp: new Date(Date.now() - 1000 * 60 * 90).toISOString(), // 1.5 hours ago
-      description: 'Small group of women uneasy in the presence of 3+ men.',
-      severity: 'Red',
-      evidence: [
-        {
-          type: 'image',
-          url: '/alerttwo.jpg',
-        },
-      ],
-      isAddressed: false,
-    },
-    {
-      id: '3',
-      location: {
-        city: 'New Delhi',
-        area: 'Karol Bagh',
-      },
-      timestamp: new Date(Date.now() - 1000 * 60 * 240).toISOString(), // 4 hours ago
-      description: 'A group of two women detected with neutral emotion in a dimly lit area.',
-      severity: 'Moderate',
-      evidence: [
-        {
-          type: 'image',
-          url: '/aletthree.jpg',
-        },
-      ],
-      isAddressed: false,
-    },
-  ];
+
 
       const currentOrganization = useMemo(
         () => JSON.parse(localStorage.getItem('currentOrganization') || '{}'),
@@ -70,7 +18,7 @@ export function AlertDisplay({ activeTab }: AlertDisplayProps) {
   
   
   const [alerts, setAlerts] = useState<Alert[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [filters, setFilters] = useState<FilterState>({
     severity: 'All',
@@ -125,23 +73,11 @@ export function AlertDisplay({ activeTab }: AlertDisplayProps) {
   //   }
   // };
   
-  const fetchAlerts = async () => {
-    try {
-     
-    
-      setAlerts(dummyAlerts);
-      setError(null);
-    } catch (err) {
-      setError('Failed to fetch alerts. Please try again later.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    fetchAlerts();
-    // Send dummy images when the component mounts
-    // sendDummyImages();
+    const storedAlerts = localStorage.getItem("alerts");
+    if (storedAlerts) {
+      setAlerts(JSON.parse(storedAlerts));
+    }
   }, []);
 
 
@@ -176,61 +112,59 @@ export function AlertDisplay({ activeTab }: AlertDisplayProps) {
   // };
 
 
-  const sendAlertEmail = async (alert) => {
-    console.log(currentOrganization.email);
+  // const sendAlertEmail = async (alert) => {
+  //   console.log(currentOrganization.email);
   
-    const templateParams = {
-      alert_location: alert.location.area,
-      alert_description: alert.description,
-      alert_severity: alert.severity,
-      alert_time: new Date(alert.timestamp).toLocaleString(),
-      user_email: currentOrganization.email, // Replace with dynamic email
-    };
+  //   const templateParams = {
+  //     alert_location: alert.location.area,
+  //     alert_description: alert.description,
+  //     alert_severity: alert.severity,
+  //     alert_time: new Date(alert.timestamp).toLocaleString(),
+  //     user_email: currentOrganization.email, // Replace with dynamic email
+  //   };
   
-    // Mock email sending
-    const mockEmailSend = () => {
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          if (Math.random() > 0.1) {
-            resolve(`Mock email sent successfully for service  and template `);
-          } else {
-            reject(new Error(`Mock email failed to send.`));
-          }
-        }, 1000); // Simulate network delay
-      });
-    };
+  //   // Mock email sending
+  //   const mockEmailSend = () => {
+  //     return new Promise((resolve, reject) => {
+  //       setTimeout(() => {
+          
+  //           resolve(`Mock email sent successfully for service  and template `);
+          
+  //       }, 1000); // Simulate network delay
+  //     });
+  //   };
   
-    try {
-      await toast.promise(
-        mockEmailSend('service_m1q5lne', 'template_rlc9amc', templateParams),
-        {
-          loading: `Sending email to notify the organization...`,
-          success: `Email sent successfully!`,
-          error: `Failed to send email for alert ID ${alert.id}.`,
-        }
-      );
+  //   try {
+  //     await toast.promise(
+  //       mockEmailSend('service_m1q5lne', 'template_rlc9amc', templateParams),
+  //       {
+  //         loading: `Sending email to notify the organization...`,
+  //         success: `Email sent successfully!`,
+  //         error: `Failed to send email for alert ID ${alert.id}.`,
+  //       }
+  //     );
   
-      // Mark this alert as having its email sent
-      setEmailSent((prev) => ({ ...prev, [alert.id]: true }));
-    } catch (err) {
-      console.error(`Failed to send email for alert ID ${alert.id}:`, err);
-    }
-  };
+  //     // Mark this alert as having its email sent
+  //     setEmailSent((prev) => ({ ...prev, [alert.id]: true }));
+  //   } catch (err) {
+  //     console.error(`Failed to send email for alert ID ${alert.id}:`, err);
+  //   }
+  // };
   
-  const processAlerts = async () => {
-    for (const alert of dummyAlerts) {
-      // Skip alerts for which the email has already been sent
-      if (!emailSent[alert.id]) {
-        await sendAlertEmail(alert);
-      }
-    }
-  };
+  // const processAlerts = async () => {
+  //   for (const alert of dummyAlerts) {
+  //     // Skip alerts for which the email has already been sent
+  //     if (!emailSent[alert.id]) {
+  //       await sendAlertEmail(alert);
+  //     }
+  //   }
+  // };
 
-  useEffect(() => {
-    if (alerts.length > 0) {
-      processAlerts();
-    }
-  }, [alerts]);
+  // useEffect(() => {
+  //   if (alerts.length > 0) {
+  //     processAlerts();
+  //   }
+  // }, [alerts]);
 
 
   // The rest of the component remains unchanged
@@ -291,7 +225,7 @@ export function AlertDisplay({ activeTab }: AlertDisplayProps) {
 
   return (
     <div className="p-4">
-            <Toaster position="top-center" reverseOrder={false} />
+
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-semibold text-gray-800">
           {activeTab === 'all' ? 'Current Alerts' : 'Addressed Alerts'}
@@ -319,8 +253,8 @@ export function AlertDisplay({ activeTab }: AlertDisplayProps) {
               <option value="Critical">Critical</option>
               <option value="Red">Red</option>
               <option value="High">High</option>
-              <option value="Medium">Medium</option>
-              <option value="Low">Low</option>
+              <option value="Medium">Moderate</option>
+
 
             </select>
 
