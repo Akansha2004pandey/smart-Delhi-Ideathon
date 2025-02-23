@@ -13,6 +13,8 @@
   "author": "Akansha",
   "license": "ISC",
   "dependencies": {
+    "@google/generative-ai": "^0.22.0",
+    "@pinecone-database/pinecone": "^5.0.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",

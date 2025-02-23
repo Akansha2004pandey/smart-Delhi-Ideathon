@@ -4,6 +4,7 @@ import Sidebar from './Sidebar';
 import NavbarUser from './NavbarUser';
 import UserContext from '@/utils/UserContext' 
 import { useContext } from 'react';
+import { ChatBot } from '@/components/chatbot/chatbot';
 
 const UserDashboardLayout = () => {
   const {isLoggedIn}=useContext(UserContext);
@@ -22,7 +23,9 @@ const UserDashboardLayout = () => {
             <Outlet />
           </main>
         </div>
+        <ChatBot/>
       </div>
+      
     </div>
   );
 };
