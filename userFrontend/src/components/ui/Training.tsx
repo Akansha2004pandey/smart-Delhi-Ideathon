@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Target } from "lucide-react";
+import EmergencyTips from "./EmergencyTips";
 
 declare global {
   interface Window {
@@ -298,6 +299,7 @@ const Training = () => {
           </div>
         )}
       </div>
+      <EmergencyTips/>
     </div>
   );
 };
