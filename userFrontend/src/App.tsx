@@ -63,7 +63,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/userLogin" element={<Login />} />
             <Route path="/userRegister" element={<UserRegister />} />
-            <Route path='train' element={<Training/>}/>
+
             <Route
               path="/userRegister/home"
               element={
@@ -74,18 +74,20 @@ function App() {
             />
             {/* Private Routes */}
             <Route
-              path="/userDashboard"
+              path="/userDashboard/"
               element={
                 <PrivateRoute>
                   <UserDashboardLayout />
                 </PrivateRoute>
               }
             >
-              <Route index element={<Complain />} />
+              {/* <Route index element={<Complain />} /> */}
               <Route path="complaint" element={<Complain />} />
               <Route path="feedback" element={<Feedback />} />
+              <Route path='train' element={<Training/>}/>
              
             </Route>
+
           </Routes>
         </Router>
       </RegisteredUserContext.Provider>

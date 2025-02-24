@@ -30,7 +30,7 @@ const Sidebar = () => {
       <div
         className={`fixed md:sticky top-0 h-screen bg-transparent  p-4 inset-y-0 left-0 transform ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
-        } md:translate-x-0 transition-transform duration-300 ease-in-out bg-transparent w-64 z-10 md:flex md:flex-shrink-0`}
+        } md:translate-x-0 transition-transform duration-300 ease-in-out bg-transparent w-64  md:flex md:flex-shrink-0`}
       >
         <div className="flex flex-col w-full h-full">
           <div className="flex  w-64  flex-col flex-grow pt-5 pb-4 overflow-y-auto rounded-3xl bg-white  shadow-lg">

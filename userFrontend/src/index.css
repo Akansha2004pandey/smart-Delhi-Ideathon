@@ -73,3 +73,24 @@ html.dark-mode {
     @apply bg-background text-foreground;
   }
 }
+
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 0px;
+
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #0038df; /* Red-500 */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3730a3; /* Red-600 */
+}

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Target } from "lucide-react";
 import EmergencyTips from "./EmergencyTips";
+import TrainingComponent from "./TrainingComponent";
 
 declare global {
   interface Window {
@@ -279,11 +280,11 @@ const Training = () => {
         {/* <div className="inline-flex items-center justify-center p-3 rounded-2xl mb-4">
           <Target className="h-12 w-12 text-white" />
         </div> */}
-        <h1 className="text-5xl mt-3 font-black text-white tracking-tighter">Training Mode</h1>
+        <h1 className="text-5xl -mt-12 font-black text-white tracking-tighter">Training Mode</h1>
         <p className="text-white mt-3 ">Practice self-defense moves with real-time AI feedback</p>
       </div>
 
-      <div className="aspect-video rounded-lg border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="aspect-video -mt-4 flex flex-col justify-center items-center gap-4 rounded-lg  bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         {isLoading ? (
           <div className="flex items-center justify-center h-full">
             <div className="animate-pulse text-gray-500">Initializing AI components...</div>
@@ -298,8 +299,10 @@ const Training = () => {
 
           </div>
         )}
+        <TrainingComponent/>
       </div>
       <EmergencyTips/>
+      
     </div>
   );
 };
