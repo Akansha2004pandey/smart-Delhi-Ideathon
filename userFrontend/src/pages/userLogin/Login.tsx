@@ -85,7 +85,7 @@ const Login = () => {
                             });
                             console.log("User location saved:", userLocation);
                             toast.success("Data for location saved successfully!");
-                            navigate('/userDashboard');
+                            navigate('/userDashboard/complaint');
                         } catch (error) {
                             toast.error("Error saving location data");
                             console.error("Error saving location:", error);

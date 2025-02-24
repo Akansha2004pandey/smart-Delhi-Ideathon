@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
 import {
   AlarmClock,
   AlertTriangle,
@@ -63,8 +65,22 @@ const EmergencyTips = () => {
     };
   }, [isOpen]);
 
+  const handleCopy = (number: string) => {
+    navigator.clipboard.writeText(number);
+    toast.info(`${number} copied to clipboard`,{
+      autoClose: 1000, // 1 second
+      position: "top-right",
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: false,
+      theme: "colored",
+      
+    });
+  };
+
   return (
-    <div className="fixed top-4 right-4">
+    <div className="fixed bottom-4 right-4">
       <Button
         onClick={() => setIsOpen(true)}
         className="flex items-center gap-2 bg-red-600 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-red-700"
@@ -73,10 +89,11 @@ const EmergencyTips = () => {
       </Button>
 
       {isOpen && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[9999]">
           <div
             ref={modalRef}
-            className="bg-white p-6 rounded-lg shadow-lg max-w-3xl w-full max-h-[80vh] overflow-y-auto"
+            className="bg-white p-6 shadow-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto 
+             scrollbar-thin scrollbar-track-gray-200 scrollbar-thumb-red-500 hover:scrollbar-thumb-red-600 rounded-lg"
           >
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-bold flex items-center gap-2">
@@ -110,7 +127,11 @@ const EmergencyTips = () => {
                 </h3>
                 <ul className="space-y-2">
                   {emergencyNumbers.map((contact, index) => (
-                    <li key={index} className="flex justify-between bg-gray-100 p-2 rounded-lg">
+                    <li
+                      key={index}
+                      onClick={() => handleCopy(contact.number)}
+                      className="flex justify-between bg-gray-100 p-2 rounded-lg cursor-pointer hover:bg-gray-200"
+                    >
                       <span className="font-medium">{contact.name}</span>
                       <span className="text-blue-600 font-semibold">{contact.number}</span>
                     </li>
@@ -121,6 +142,7 @@ const EmergencyTips = () => {
           </div>
         </div>
       )}
+       <ToastContainer />
     </div>
   );
 };
