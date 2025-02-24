@@ -284,7 +284,7 @@ const Training = () => {
         <p className="text-white mt-3 ">Practice self-defense moves with real-time AI feedback</p>
       </div>
 
-      <div className="aspect-video -mt-4 flex flex-col justify-center items-center gap-4 rounded-lg border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="aspect-video -mt-4 flex flex-col justify-center items-center gap-4 rounded-lg  bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         {isLoading ? (
           <div className="flex items-center justify-center h-full">
             <div className="animate-pulse text-gray-500">Initializing AI components...</div>
