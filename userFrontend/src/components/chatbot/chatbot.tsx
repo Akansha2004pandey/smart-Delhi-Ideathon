@@ -39,7 +39,7 @@ export function ChatBot() {
     });
     console.log(contextResponse.data);
 
-    // Add the user's message to the conversation
+    
     setMessages((prev) => [...prev, userMessage]);
     setInputValue('');
     setIsTyping(true);
