@@ -34,7 +34,7 @@ export function ChatBot() {
     console.log(userMessage);
 
     // Retrieve context (if needed) before sending the query to the bot
-    const contextResponse = await axios.get('http://localhost:8000/api/getContext', { 
+    const contextResponse = await axios.get('https://smart-delhi-ideathon-4.onrender.com/api/getContext', { 
       params: { query: inputValue } 
     });
     console.log(contextResponse.data);
@@ -50,7 +50,7 @@ export function ChatBot() {
 
   const handleReceiveMessage = async (query: string, context: any) => {
     try {
-      const response = await axios.get('http://localhost:8000/api/gemini-rag', {
+      const response = await axios.get('https://smart-delhi-ideathon-4.onrender.com/api/gemini-rag', {
         params: { query, context: JSON.stringify(context) },
       });
       console.log(response.data);
@@ -68,7 +68,7 @@ export function ChatBot() {
 
     
       await axios.post(
-        'http://localhost:8000/api/addQuery',
+        'https://smart-delhi-ideathon-4.onrender.com/api/addQuery' ,
         null,
         { 
           params: { 
